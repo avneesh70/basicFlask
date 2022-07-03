@@ -1,26 +1,28 @@
-from flask import Flask, request, jsonify, uuid
+from flask import Flask, request, jsonify
+import uuid
+import json
 
 app = Flask(__name__)
 
 @app.route("/game", methods=['POST', 'GET'])
 def feed():
     data = request.args
-    gameList = []
-    print(data['tes'])
+    gameList = {}
     keys = ['name', 'game', 'character']
     for i in data:
-        print(i)
+        # print(i)
         l = data[i].split('-')
-        print(l)
+        # print(l)
         k = 0
-        locals()[uuid.uuid4] = dict()
+        foo = dict()
         for j in keys:
             foo.update({j: l[k]})
             k += 1
-        # foo = {keys[0] : data['tes']}
-        print(foo)
-        gameList.append(foo)
-    print(gameList)
+        # print(foo)
+        gameList[uuid.uuid4().int] = foo
+    # print(gameList)
+    with open('game.json', 'w') as file:
+        json.dump(gameList, file)
     return jsonify(gameList)
 
 @app.route("/test", methods=['POST', 'GET'])
