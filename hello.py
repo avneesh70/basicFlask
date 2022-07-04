@@ -4,6 +4,36 @@ import json
 
 app = Flask(__name__)
 
+@app.route("/valorant", methods=['POST', 'GET'])
+def game():
+    with open('game.json', 'r') as f:
+        data = json.load(f)
+        # print(type(data))
+        op = []
+        for i in data:
+            # print(type(i))
+            for j in data[i]:
+                # print(data[i][j])
+                if 'valorant' in data[i][j]:
+                    op.append(data[i])
+                    break
+    return jsonify(op)
+
+@app.route("/krillxox", methods=['POST', 'GET'])
+def player():
+    with open('game.json', 'r') as f:
+        data = json.load(f)
+        # print(type(data))
+        op = []
+        for i in data:
+            # print(type(i))
+            for j in data[i]:
+                # print(data[i][j])
+                if 'krillxox' in data[i][j]:
+                    op.append(data[i])
+                    break
+    return jsonify(op)
+
 @app.route("/game", methods=['POST', 'GET'])
 def feed():
     data = request.args
